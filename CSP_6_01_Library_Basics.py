@@ -4,6 +4,8 @@
 #There is no provided test file. You must make and submit one yourself. (check older test files for reference)
 
 
+import analytics
+
 # Modify the below function such that it takes in a list of prices and returns that list with 15% added value
 def process_expenses(rawPrices):
     updated_prices = []
@@ -16,7 +18,7 @@ def process_expenses(rawPrices):
 # Modify the below function such that it asks the user for n scores and then returns the highest score and the average score of the list.
 def analyze_scores(n):
     scores = []
-    for i in range(n):
+    for _ in range(n):
         score = float(input("Enter score: "))
         scores.append(score)
 
@@ -27,7 +29,7 @@ def analyze_scores(n):
 
 
 # Modify the below function such that it takes in a list of strings and returns that list with all spaces removed
-#and all letters lower case.
+# and all letters lower case.
 def sanitize_usernames(usernames):
     return analytics.clean_text(usernames)
 
@@ -38,14 +40,15 @@ def identify_outliers(values):
 
 
 # Modify the below function such that it takes in a list of items and asks the user for an item to search for.
-#Sanitize the list to only be lower case worsd with no extra spaces
-#Then return the location of the word using binary search if the list is in order and linear search if it is not.
-#example items = ["  Apple", "Banana ", "  CHERRY  ", " date "]
+# Sanitize the list to only be lower case words with no extra spaces
+# Then return the location of the word using binary search if the list is in order and linear search if it is not.
+# example items = ["  Apple", "Banana ", "  CHERRY  ", " date "]
 def search_and_report(items):
     cleaned = analytics.clean_text(items)
 
     target = input("Enter item to search for: ").strip().lower()
 
+    # If cleaned list is sorted (ascending), use binary search
     if cleaned == sorted(cleaned):
         low = 0
         high = len(cleaned) - 1
@@ -62,6 +65,7 @@ def search_and_report(items):
 
         return -1
     else:
+        # Not sorted, use linear search
         for i in range(len(cleaned)):
             if cleaned[i] == target:
                 return i
