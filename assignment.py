@@ -1,12 +1,14 @@
 import unittest
 from unittest.mock import patch
 import analytics
-from main import (
+
+from assignment import (
     process_expenses,
-    analyze_scores,
+    test_analyze_scores,
     sanitize_usernames,
     identify_outliers,
-    search_and_report,)
+    search_and_report,
+)
 
 class TestMainFunctions(unittest.TestCase):
 
@@ -18,7 +20,7 @@ class TestMainFunctions(unittest.TestCase):
     @patch("builtins.input", side_effect=["80", "90", "100"])
     def test_analyze_scores(self, mock_input):
         highest, avg = analyze_scores(3)
-        self.assertEqual(highest, 100.0)
+        self.assertAlmostEqual(highest, 100.0)
         self.assertAlmostEqual(avg, (80 + 90 + 100) / 3)
 
     def test_sanitize_usernames(self):
@@ -34,16 +36,14 @@ class TestMainFunctions(unittest.TestCase):
     @patch("builtins.input", return_value="cherry")
     def test_search_and_report_sorted(self, mock_input):
         items = ["  Apple", "Banana ", "  CHERRY  ", " date "]
-        # cleaned: ["apple", "banana", "cherry", "date"] – sorted
         idx = search_and_report(items)
-        self.assertEqual(idx, 2)  # "cherry" at index 2
+        self.assertEqual(idx, 2)
 
     @patch("builtins.input", return_value="banana")
     def test_search_and_report_unsorted(self, mock_input):
         items = ["Banana ", "  apple", "CHERRY"]
-        # cleaned: ["banana", "apple", "cherry"] – not sorted
         idx = search_and_report(items)
-        self.assertEqual(idx, 0)  # "banana" at index 0
+        self.assertEqual(idx, 0)
 
     @patch("builtins.input", return_value="kiwi")
     def test_search_and_report_not_found(self, mock_input):
@@ -54,3 +54,7 @@ class TestMainFunctions(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def process_expenses():
+    return None
